@@ -14,11 +14,11 @@
         {
             "name": "Ouches Technology",
             "email": "info@ouchestechnology.com.ng",
-            "homepage": "http://ouchestechnology..com.ng",
+            "homepage": "https://ouchestechnology..com.ng",
             "role": "Developer"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "php": ">=8.0.0"
     }
