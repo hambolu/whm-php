@@ -3,6 +3,8 @@
     "description": "php whm cpanel manager",
     "type": "library",
     "license": "MIT",
+    "keywords": ["cpanel","whm","web hosting manager"],
+    "homepage": "https://github.com/hambolu/whm-php",
     "autoload": {
         "psr-4": {
             "Ouchestechnology\\WhmPhp\\": "src/"
@@ -11,9 +13,13 @@
     "authors": [
         {
             "name": "Ouches Technology",
-            "email": "info@ouchestechnology.com.ng"
+            "email": "info@ouchestechnology.com.ng",
+            "homepage": "http://ouchestechnology..com.ng",
+            "role": "Developer"
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+        "php": ">=8.0.0"
+    }
 }
