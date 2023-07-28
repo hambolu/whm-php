@@ -1,0 +1,19 @@
+{
+    "name": "ouchestechnology/whm-php",
+    "description": "php whm cpanel manager",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ouchestechnology\\WhmPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ouches Technology",
+            "email": "info@ouchestechnology.com.ng"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
