@@ -42,18 +42,19 @@ Create a cPanel Account
 
 use Ouchestechnology\WhmPhp\CpanelApi;
 
-$cpanel = new CpanelApi(config('cpanel.base_url'), config('cpanel.username'), config('cpanel.password'));
+    $cpanel = new CpanelApi(config('cpanel.base_url'), config('cpanel.username'), config('cpanel.password'));
 
-// Create a new cPanel account
+Create a new cPanel account
     $response = $cpanel->createCpanelAccount('newaccount', 'example.com', 'secretpassword');
 
-// Get all hosting packages
+Get all hosting packages
     $response = $cpanel->getAllHostingPackages();
 
-// Get all cPanel users
+Get all cPanel users
     $response = $cpanel->getAllUsers();
 
-// Get all hosting packages
+Get all hosting packages
+
     $response = $cpanel->getAllHostingPackages();
 
 The Ouchestechnology/whm-php is open-sourced software licensed under the MIT license.
