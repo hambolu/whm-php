@@ -38,19 +38,23 @@ Open the .env file in your Laravel application and add the following cPanel cred
 Replace https://your-cpanel-host.com, your_cpanel_username, and your_cpanel_password with your actual cPanel credentials.
 
 Usage
+
 Create a cPanel Account
 
-use Ouchestechnology\WhmPhp\CpanelApi;
+    use Ouchestechnology\WhmPhp\CpanelApi;
 
     $cpanel = new CpanelApi(config('cpanel.base_url'), config('cpanel.username'), config('cpanel.password'));
 
 Create a new cPanel account
+
     $response = $cpanel->createCpanelAccount('newaccount', 'example.com', 'secretpassword');
 
 Get all hosting packages
+
     $response = $cpanel->getAllHostingPackages();
 
 Get all cPanel users
+
     $response = $cpanel->getAllUsers();
 
 Get all hosting packages
