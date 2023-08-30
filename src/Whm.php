@@ -7,10 +7,10 @@ class WhmPhp
     protected $baseUrl;
     protected $apiKey;
 
-    public function __construct($baseUrl, $apiKey)
+    public function __construct()
     {
-        $this->baseUrl = $baseUrl;
-        $this->apiKey = $apiKey;
+        $this->baseUrl = env('WHM_URL');
+        $this->apiKey = env('ACCESS_TOKEN');
     }
 
     protected function makeRequest($endpoint, $params = [], $method = 'GET')

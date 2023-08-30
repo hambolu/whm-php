@@ -1,95 +1,119 @@
 <?php
 namespace Ouchestechnology\WhmPhp;
+use Illuminate\Support\Facades\Http;
 
 class CpanelApi
 {
     protected $baseUrl;
     protected $username;
     protected $password;
+    protected $type;
 
-    public function __construct($baseUrl, $username, $password)
+
+    public function __construct($path)
     {
-        $this->baseUrl = $baseUrl;
-        $this->username = $username;
-        $this->password = $password;
+        $this->baseUrl = config('app.baseUrl');
+        $this->username    = config('app.username');
+        $this->password    = config('app.password');
+        //$this->type    = $type;
+        $this->path    = $path;
     }
 
-    protected function makeRequest($endpoint, $params = [], $method = 'GET')
+    protected function makeRequest($type)
     {
-        $client = new Client([
-            'base_uri' => $this->baseUrl,
-            'auth' => [$this->username, $this->password],
-            'headers' => [
-                'Accept' => 'application/json',
-            ],
-        ]);
+        $response = Http::withBasicAuth($this->username, $this->password)->$type($this->baseUrl.$this->path);
+        //dd($type, $this->path, $response, $this->baseUrl.$this->path);
 
-        $response = $client->request($method, $endpoint, ['query' => $params]);
-        return json_decode($response->getBody()->getContents(), true);
+        return $response->json();
+
+        
     }
 
     public function createCpanelAccount($username, $domain, $password)
     {
-        $params = [
+        $response = Http::withHeaders([
+            'Authorization' => $this->auth,
+            'Accept' => 'application/json',
+        ])->post($this->baseUrl.'/createacct',[
             'username' => $username,
             'domain' => $domain,
             'password' => $password,
-        ];
+        ]);
 
-        return $this->makeRequest('createacct', $params, 'POST');
+        return $response->json();
     }
 
     public function createHostingPackage($name, $quota, $maxEmailAccounts, $maxDatabases, $maxSubdomains)
     {
-        $params = [
+        $response = Http::withHeaders([
+            'Authorization' => $this->auth,
+            'Accept' => 'application/json',
+        ])->post($this->baseUrl.'/addpkg',[
             'name' => $name,
             'quota' => $quota,
             'max_email_acc' => $maxEmailAccounts,
             'max_sql' => $maxDatabases,
             'max_sub' => $maxSubdomains,
-        ];
+        ]);
 
-        return $this->makeRequest('addpkg', $params, 'POST');
+        return $response->json();
+        
     }
 
-    public function getAllHostingPackages()
+    public function getAllHostingPackages($type)
     {
-        return $this->makeRequest('listpkgs');
+         
+        //$response = Http::withBasicAuth($this->username, $this->password)->$type($this->baseUrl.'/listpkgs');
+
+        return $this->makeRequest($type);
     }
 
     public function getAllUsers()
     {
-        return $this->makeRequest('listaccts');
+
+        return $this->makeRequest('listaccts?api.version=1');
     }
 
     public function suspendCpanelAccount($username)
     {
-        $params = [
+        $response = Http::withHeaders([
+            'Authorization' => $this->auth,
+            'Accept' => 'application/json',
+        ])->post($this->baseUrl.'/suspendacct',[
             'user' => $username,
-        ];
+        ]);
 
-        return $this->makeRequest('suspendacct', $params, 'POST');
+        return $response->json();
     }
 
     // Function to unsuspend a cPanel account
     public function unsuspendCpanelAccount($username)
     {
-        $params = [
+        $response = Http::withHeaders([
+            'Authorization' => $this->auth,
+            'Accept' => 'application/json',
+        ])->post($this->baseUrl.'/unsuspendacct',[
             'user' => $username,
-        ];
+        ]);
 
-        return $this->makeRequest('unsuspendacct', $params, 'POST');
+        return $response->json();
+
+        
     }
 
     // Function to change the password of a cPanel account
     public function changeCpanelAccountPassword($username, $password)
     {
-        $params = [
+        $response = Http::withHeaders([
+            'Authorization' => $this->auth,
+            'Accept' => 'application/json',
+        ])->post($this->baseUrl.'/passwd',[
             'user' => $username,
             'pass' => $password,
-        ];
+        ]);
 
-        return $this->makeRequest('passwd', $params, 'POST');
+        return $response->json();
+        
     }
 
     // Function to delete a cPanel account

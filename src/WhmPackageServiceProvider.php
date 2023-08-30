@@ -21,6 +21,6 @@ class WhmPackageServiceProvider extends ServiceProvider
         });
 
         // Load the helper functions
-        require_once __DIR__ . '/Helper.php';
+        require_once (__DIR__ . '/Helper.php');
     }
 }
